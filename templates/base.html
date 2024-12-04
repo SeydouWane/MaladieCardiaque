@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="/static/Logo_UN-Horizontal.png" alt="Logo UN" />
+      <h1 class="header-title">Application Santé</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/predict">Prédiction des maladies</a></li>
+        <li><a href="/calculate_img">Calcul IMG</a></li>
+      </ul>
+    </nav>
+    <div class="main-container">{% block content %} {% endblock %}</div>
+  </body>
+</html>

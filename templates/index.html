@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<div class="background-container">
+  <div class="content">
+    <h2>Bienvenue dans l'Application Santé</h2>
+    <p>
+      Cette application est uniquement destinée aux personnels de santé,<br />
+      elle propose deux fonctionnalités principales :
+    </p>
+    <ul>
+      <li>
+        <a href="/predict" class="button"
+          >Prédiction des maladies cardiovasculaires</a
+        >
+      </li>
+      <li>
+        <a href="/calculate_img" class="button"
+          >Calcul de l'Indice de Masse Grasse (IMG)</a
+        >
+      </li>
+
+      <p>Par WANE - KEBE</p>
+    </ul>
+  </div>
+</div>
+{% endblock %}

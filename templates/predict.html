@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% block content %}
+<div class="form-container">
+  <h2>Prédiction des maladies cardiovasculaires</h2>
+  <form method="POST" action="/predict" id="prediction-form">
+    <!-- Formulaire de saisie -->
+    <label for="age">Âge :</label>
+    <input type="number" id="age" name="age" min="0" max="120" required />
+    <label for="sex">Sexe :</label>
+    <select id="sex" name="sex">
+      <option value="0">Femme</option>
+      <option value="1">Homme</option>
+    </select>
+    <label for="cp">Type de douleur thoracique :</label>
+    <select id="cp" name="cp">
+      <option value="1">Angine typique</option>
+      <option value="2">Angine atypique</option>
+      <option value="3">Douleur non angineuse</option>
+      <option value="4">Asymptomatique</option>
+    </select>
+    <label for="trestbps">Pression artérielle au repos (mm Hg) :</label>
+    <input
+      type="number"
+      id="trestbps"
+      name="trestbps"
+      min="50"
+      max="200"
+      required
+    />
+    <label for="chol">Cholestérol (mg/dl) :</label>
+    <input type="number" id="chol" name="chol" min="100" max="600" required />
+    <label for="fbs"
+      >Glycémie à jeun (FBS > 120 mg/dl, 1 = vrai, 0 = faux) :</label
+    >
+    <select id="fbs" name="fbs">
+      <option value="0">Faux</option>
+      <option value="1">Vrai</option>
+    </select>
+    <label for="restecg">Résultats ECG :</label>
+    <select id="restecg" name="restecg">
+      <option value="0">Normal</option>
+      <option value="1">Anomalie ST-T</option>
+      <option value="2">Hypertrophie ventriculaire gauche</option>
+    </select>
+    <label for="thalach">Fréquence cardiaque maximale :</label>
+    <input
+      type="number"
+      id="thalach"
+      name="thalach"
+      min="50"
+      max="250"
+      required
+    />
+    <label for="exang">Angine induite par l'effort :</label>
+    <select id="exang" name="exang">
+      <option value="0">Non</option>
+      <option value="1">Oui</option>
+    </select>
+    <label for="oldpeak">Oldpeak :</label>
+    <input
+      type="number"
+      step="0.1"
+      id="oldpeak"
+      name="oldpeak"
+      min="0.0"
+      max="10.0"
+      required
+    />
+    <label for="slope">Pente du segment ST :</label>
+    <select id="slope" name="slope">
+      <option value="1">Ascendante</option>
+      <option value="2">Plane</option>
+      <option value="3">Descendante</option>
+    </select>
+    <label for="ca">Nombre de vaisseaux colorés par fluoroscopie :</label>
+    <input
+      type="number"
+      step="1.0"
+      id="ca"
+      name="ca"
+      min="0"
+      max="3"
+      required
+    />
+    <label for="thal">Thal :</label>
+    <select id="thal" name="thal">
+      <option value="3">Normal</option>
+      <option value="6">Défaut fixe</option>
+      <option value="7">Défaut réversible</option>
+    </select>
+    <button type="submit">Prédire</button>
+  </form>
+  <div id="result"></div>
+</div>
+
+<script>
+  const predictionForm = document.getElementById("prediction-form");
+  predictionForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(predictionForm);
+    const response = await fetch("/predict", {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `<p>${result.result}</p>`;
+
+    if (result.advice) {
+      const adviceContainer = document.createElement("div");
+      adviceContainer.innerHTML = "<h3>Conseils personnalisés :</h3>";
+      result.advice.forEach((advice) => {
+        const button = document.createElement("a");
+        button.href = advice.url;
+        button.textContent = advice.label;
+        button.className = "advice-button";
+        button.target = "_blank";
+        adviceContainer.appendChild(button);
+      });
+      resultDiv.appendChild(adviceContainer);
+    }
+  });
+</script>
+{% endblock %}

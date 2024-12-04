@@ -1,0 +1,5 @@
+Nom,Prénom,Lieu de résidence,Téléphone,Âge,Sexe,CP,Tension artérielle,Cholestérol,FBS,RestECG,Thalach,Exang,Oldpeak,Slope,CA,Thal,Prédiction
+,,,,30,Homme,1,120,200,0,0,150,0,1.0,1,0,3,0
+WANE,Papa Seydou,,,30,Femme,1,120,200,0,0,150,0,1.0,1,0,3,0
+WANE,Papa Seydou,,,30,Femme,1,120,200,0,0,150,0,1.0,1,0,3,0
+WANE,Papa Seydou,,,30,Femme,1,120,200,0,0,150,0,1.0,1,0,3,0

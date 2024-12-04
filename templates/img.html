@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+<h2>Calcul de l'Indice de Masse Grasse (IMG)</h2>
+<form method="POST" action="/calculate_img" id="img-form">
+  <label for="poids">Poids (kg) :</label>
+  <input type="number" step="0.1" id="poids" name="poids" required />
+
+  <label for="taille">Taille (m) :</label>
+  <input type="number" step="0.01" id="taille" name="taille" required />
+
+  <label for="age">Âge :</label>
+  <input type="number" id="age" name="age" min="0" max="120" required />
+
+  <label for="sexe">Sexe :</label>
+  <select id="sexe" name="sexe">
+    <option value="0">Femme</option>
+    <option value="1">Homme</option>
+  </select>
+
+  <button type="submit">Calculer IMG</button>
+</form>
+<div id="img-result"></div>
+<script>
+  const imgForm = document.getElementById("img-form");
+  imgForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(imgForm);
+    const response = await fetch("/calculate_img", {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    document.getElementById("img-result").textContent =
+      result.orientation || result.message;
+  });
+</script>
+{% endblock %}
